@@ -1,13 +1,110 @@
-import React from 'react'
-import { Separator } from '../ui/separator'
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { useRouter } from "next/navigation";
+
+import { Separator } from "../ui/separator";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "../ui/textarea";
+import ImageUpload from "./custom ui/ImageUpload";
+// import { url } from "inspector";
+
+
+const formSchema = z.object({
+  title: z.string().min(2).max(20),
+  description: z.string().min(2).max(200).trim(),
+  image: z.string(),
+});
 
 const CollectionForm = () => {
-  return (
-    <div className='p-10'>
-      <p className='font-bold text-xl '>Create Collections</p>
-      <Separator className='bg-green-700 mt-4' />
-    </div>
-  )
-}
+  const router = useRouter()
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      image: "",
+    },
+  });
 
-export default CollectionForm
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log(values);
+  };
+
+  return (
+    <div className="p-10">
+      <p className="font-bold text-xl ">Create Collections</p>
+      <Separator className="bg-green-700 mt-4" />
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Title</FormLabel>
+                <FormControl>
+                  <Input placeholder="Title" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Description</FormLabel>
+                <FormControl>
+                  <Textarea placeholder="Description" {...field} rows={5} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="image"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Upload Image</FormLabel>
+                <FormControl>
+                  <ImageUpload
+                    value={field.value ? [field.value] : []}
+                    onChange={(url) => field.onChange(url)}
+                    onRemove={() => field.onChange("")}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="flex gap-6">
+          <Button
+            className="bg-primary text-white hover:text-text  rounded-xl"
+            type="submit"
+          >
+            Submit
+          </Button>
+          <Button className="bg-primary text-white hover:text-text  rounded-xl" type="button" onClick={()=> router.push("/Collections")}>Discard</Button>
+          </div>
+        </form>
+      </Form>
+    </div>
+  );
+};
+
+export default CollectionForm;

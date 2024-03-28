@@ -12,13 +12,13 @@ const TopNavBar = () => {
   const [dropdownMenu, setDropdownMenu] = useState(false);
   const pathname = usePathname();
   return (
-    <div className="sticky top-0 z-20 w-full flex justify-between items-center px-8 py-4 bg-green-500 shadow-xl ">
+    <div className="sticky top-0 z-20 w-full flex justify-between items-center px-8 py-4 bg-primary shadow-md ">
       <div className="flex gap-8 max-md:hidden">
         {navLinks.map((links) => (
           <Link
             href={links.url}
             key={links.label}
-            className={`flex gap-4 text-sm ${pathname === links.url ? "text-black" : "text-gray-300"}`}
+            className={`flex gap-4 text-sm ${pathname === links.url ? "text-black" : "text-white"}`}
           >
             {links.icon} <p>{links.label}</p>
           </Link>
