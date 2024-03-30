@@ -1,5 +1,5 @@
 import { CldUploadWidget } from "next-cloudinary";
-import { Button } from "../../ui/button";
+import { Button } from "../ui/button";
 import { Plus, Trash } from "lucide-react";
 import React from "react";
 import Image from "next/image";
@@ -28,9 +28,9 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                 type="button"
                 onClick={() => onRemove(url)}
                 size="sm"
-                className="bg-red-1 text-white"
+                className="bg-transparent  rounded-3xl px-3 py-2 text-sm font-semibold  hover:text-red-500 focus-visible:outline focus-visible:outline-2 "
               >
-                <Trash className="h-4 w-4 text-text" />
+                <Trash className="h-4 w-4 text-red-500 hover:scale-100" />
               </Button>
             </div>
             <Image
@@ -46,10 +46,11 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         {({ open }) => {
           return (
             <Button
+              type="button"
               onClick={() => open()}
-              className="bg-primary text-white hover:text-text  rounded-xl"
+              className="rounded-3xl bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
-              <Plus className="w-4 h-4  text-text" />
+              <Plus className="w-4 h-4  hover:text-text" />
             </Button>
           );
         }}

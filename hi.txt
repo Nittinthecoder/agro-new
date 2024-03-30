@@ -1,0 +1,7 @@
+8VQ8qq02QuTC4Aec  --> password
+
+mathewnittin182002 -->  username
+
+
+mongodb+srv://<username>:<password>@cluster0.wei9tju.mongodb.net/ --> connection to vscode
+mongodb+srv://<username>:<password>@cluster0.wei9tju.mongodb.net/
